@@ -1,0 +1,39 @@
+*{margin: 0;padding: 0;box-sizing: border-box;}
+body{
+  position: relative;
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #333;
+  background-color: #000;
+}
+.tile{
+  position: absolute;
+  width: 64px;
+  height: 64px;
+  background-size: 480px;
+  background-position: 0px 0px;
+  background-repeat: repeat;
+  /* background-attachment: fixed; */
+  clip-path: polygon(10% 10%, 20% 10%, 45% 0%, 80% 10%, 100% 10%, 90% 30%, 100% 60%, 100% 100%, 80% 100%, 45% 90%, 20% 100%, 10% 100%, 10% 90%, 10% 60%, 0% 30%);
+  transform: scale(1.13);
+}
+.tile.sand-stone{
+  background-image: url("../assets/Texture2D/sand_stone.png");
+}
+.tile.algae{
+  background-image: url("../assets/Texture2D/algae.png");
+  background-size: 180px;
+}
+.tile.copper{
+  background-image: url("../assets/Texture2D/cuprite.png");
+  background-size: 720px;
+}
+.tile.copper-mask{
+  /* background-image: url("../assets/Texture2D/cuprite_mask.png"); */
+  background-size: 720px;
+  /* clip-path: polygon(0 0, 40% 0, 100% 60%, 100% 100%, 60% 100%, 0 40%); */
+}
+.tile:hover{
+  opacity: 0.7;
+}
