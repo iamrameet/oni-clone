@@ -6,6 +6,7 @@ body{
   line-height: 1.5;
   color: #333;
   background-color: #000;
+  zoom: 0.48;
 }
 .tile{
   position: absolute;
@@ -16,24 +17,79 @@ body{
   background-repeat: repeat;
   /* background-attachment: fixed; */
   clip-path: polygon(10% 10%, 20% 10%, 45% 0%, 80% 10%, 100% 10%, 90% 30%, 100% 60%, 100% 100%, 80% 100%, 45% 90%, 20% 100%, 10% 100%, 10% 90%, 10% 60%, 0% 30%);
-  transform: scale(1.13);
+  transform: scaleX(1.13) scaleY(1.13);
+  /* opacity: 0.5; */
 }
-.tile.sand-stone{
+.tile:hover{
+  opacity: 0.7;
+}
+.tile.left-border{
+  transform: scaleX(1.03) scaleY(1.13) translateX(2px);
+}
+.tile.top-border{
+  transform: scaleX(1.13) scaleY(1.03) translateY(2px);
+}
+.tile.left-border.top-border{
+  transform: scaleX(1.03) scaleY(1.03) translateX(2px) translateY(2px);
+}
+
+.tile.air{
+  background-image: url("../assets/Texture2D/solid_oxygen.png");
+}
+.tile.dirt{
+  background-image: url("../assets/Texture2D/dirt.png");
+}
+.tile.sand{
+  background-image: url("../assets/Texture2D/sand.png");
+}
+.tile.fertilizer{
+  background-image: url("../assets/Texture2D/fertilizer.png");
+}
+.tile.oxylite{
+  background-image: url("../assets/Texture2D/oxyrocks.png");
+}
+.tile.coal{
+  background-image: url("../assets/Texture2D/carbon.png");
+}
+.tile.igneous-rock{
+  background-image: url("../assets/Texture2D/igneous_rock.png");
+}
+.tile.limestone{
+  background-image: url("../assets/Texture2D/limestone.png");
+}
+.tile.sandstone{
   background-image: url("../assets/Texture2D/sand_stone.png");
+}
+.tile.phosphorus{
+  background-image: url("../assets/Texture2D/phosphorus.png");
+}
+.tile.phosphorite{
+  background-image: url("../assets/Texture2D/phosphorite.png");
+}
+.tile.sulfur{
+  background-image: url("../assets/Texture2D/sulfur.png");
+  background-size: 180px;
 }
 .tile.algae{
   background-image: url("../assets/Texture2D/algae.png");
   background-size: 180px;
 }
+.tile.slime-mold{
+  background-image: url("../assets/Texture2D/slime_mold.png");
+}
 .tile.copper{
   background-image: url("../assets/Texture2D/cuprite.png");
-  background-size: 720px;
+}
+.tile.iron{
+  background-image: url("../assets/Texture2D/iron.png");
+}
+.tile.aluminum{
+  background-image: url("../assets/Texture2D/aluminum_ore.png");
+}
+.tile.absylite{
+  background-image: url("../assets/Texture2D/katairite.png");
 }
 .tile.copper-mask{
   /* background-image: url("../assets/Texture2D/cuprite_mask.png"); */
-  background-size: 720px;
   /* clip-path: polygon(0 0, 40% 0, 100% 60%, 100% 100%, 60% 100%, 0 40%); */
-}
-.tile:hover{
-  opacity: 0.7;
 }

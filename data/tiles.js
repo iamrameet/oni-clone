@@ -1,0 +1,20 @@
+const _naturalTiles = {
+  "Air": [null, "Air"],
+  "Absylite": ["absylite", "Absylite"],
+  "Dirt": ["dirt", "Dirt"],
+  "Sand": ["sand", "Sand"],
+  "Fertilizer": ["fertilizer", "Fertilizer"],
+  "Oxylite": ["oxylite", "Oxylite"],
+  "SlimeMold": ["slime-mold", "Slime Mold"],
+  "Algae": ["algae", "Algae"],
+  "Sandstone": ["sandstone", "Sandstone"],
+  "Coal": ["coal", "Coal"],
+  "IgneousRock": ["igneous-rock", "Igneous Rock"],
+  "Phosphorus": ["phosphorus", "Phosphorus"],
+  "Phosphorite": ["phosphorite", "Phosphorite"],
+  "Sulfur": ["sulfur", "Sulfur"],
+  "Limestone": ["limestone", "Limestone"],
+  "Copper": ["copper", "Copper"],
+  "Iron": ["iron", "Iron"],
+  "Aluminum": ["aluminum", "Aluminum"]
+}

@@ -1,21 +1,103 @@
-/// <reference path="E:/library/dom.js"/>
+/// <reference path="../library/dom.js"/>
+/// <reference path="tiles.js"/>
+/// <reference path="biome.js"/>
 
-const TILE_SIZE = 42;
+const TILE_SIZE = 48;
 const TILE_H = window.innerWidth / TILE_SIZE;
 const TILE_V = window.innerHeight / TILE_SIZE;
 
-const tileArray = ["sand-stone", "sand-stone", "algae", "copper"];
+const TN = Tiles.natural;
+
+const Level = new class Level{
+  /** @type {number[][]} */
+  naturalTiles = [];
+  biome = {
+    temperate: new Biome([
+      ...Tiles.makeCopies(TN.Dirt, 2),
+      ...Tiles.makeCopies(TN.Coal, 1),
+      ...Tiles.makeCopies(TN.Sand, 1),
+      ...Tiles.makeCopies(TN.Sandstone, 2),
+      ...Tiles.makeCopies(TN.Copper, 1),
+      ...Tiles.makeCopies(TN.Fertilizer, 1),
+      ...Tiles.makeCopies(TN.Algae, 2)
+    ]),
+    forest: new Biome([
+      ...Tiles.makeCopies(TN.Dirt, 2),
+      TN.Aluminum,
+      TN.Phosphorite,
+      TN.IgneousRock,
+      TN.Dirt,
+      TN.Phosphorite,
+      ...Tiles.makeCopies(TN.IgneousRock, 2),
+    ], .6),
+    metalArea: new Biome([TN.Limestone, TN.IgneousRock]),
+  }
+  generate(width, height){
+    for(let x = 0; x < width; x++){
+      this.naturalTiles[x] = [];
+      for(let y = 0; y < height; y++)
+        this.naturalTiles[x][y] = 0;
+    }
+  }
+  /** @param {number[][]} tiles */
+  overrideNaturalTiles(tiles, offsetX = 0, offsetY = 0){
+    const start = {
+      x: Math.max(0, offsetX),
+      y: Math.max(0, offsetY)
+    };
+    const end = {
+      x: Math.min(this.naturalTiles.length, tiles.length + offsetX),
+      y: Math.min(this.naturalTiles[0].length, tiles[0].length + offsetY)
+    };
+    console.log(start, end)
+    for(let x = start.x; x < end.x; x++){
+      const new_x = x - offsetX;
+      for(let y = start.y; y < end.y; y++){
+        const new_y = y - offsetY;
+        this.naturalTiles[x][y] = tiles[new_x][new_y];
+      }
+    }
+  }
+};
 
 function main(){
-  for(let x = 0; x < TILE_H * 2; x++){
-    for(let y = 0; y < TILE_V * 2; y++){
-      const index = randomInt(0, 3);
-      const tile = createTile(tileArray[index], x, y);
-      document.body.prepend(tile);
-      if(index === 3){
-        const child_tile = createTile("copper-mask", x, y);
-        document.body.prepend(child_tile);
+
+  Level.generate(100, 100);
+  Level.overrideNaturalTiles(Level.biome.temperate.construct(40, 40));
+  Level.overrideNaturalTiles(Level.biome.forest.construct(40, 40), 0, 40);
+  Level.overrideNaturalTiles(Level.biome.metalArea.construct(40, 40), 40, 0);
+
+  // const canvas = DOM.create("canvas", {
+  //   width: (TILE_H - 1) * TILE_SIZE,
+  //   Height: (TILE_V - 1) * TILE_SIZE
+  // });
+  // document.body.appendChild(canvas);
+  // const context = canvas.getContext("2d");
+
+
+  for(let x = 0; x < Level.naturalTiles.length; x++){
+    for(let y = 0; y < Level.naturalTiles[x].length; y++){
+      // const index = randomInt(0, 3);
+      const index = Level.naturalTiles[x][y];
+      const naturalTile = Tiles.getNaturalTile(index);
+      if(naturalTile.id === null)
+       continue;
+      const tile = createTile(naturalTile, x, y);
+
+      if(x-1 in Level.naturalTiles){
+        if(Level.naturalTiles[x-1][y] !== index)
+          tile.classList.add("left-border");
       }
+      if(y-1 in Level.naturalTiles[x]){
+        if(Level.naturalTiles[x][y-1] !== index)
+          tile.classList.add("top-border");
+      }
+
+      document.body.prepend(tile);
+      // if(index === 3){
+      //   const child_tile = createTile("copper-mask", x, y);
+      //   document.body.prepend(child_tile);
+      // }
     }
   }
 
@@ -23,9 +105,11 @@ function main(){
 
 }
 
-function createTile(type, x, y){
-  const tile = DOM.create("div", {
-    class: "tile " + type
+/** @param {Tile} tile */
+function createTile(tile, x, y){
+  const tileElement = DOM.create("div", {
+    class: "tile " + tile.id,
+    title: tile.name
   }, {
     top: y * TILE_SIZE + "px",
     left: x * TILE_SIZE + "px",
@@ -33,9 +117,9 @@ function createTile(type, x, y){
     height: TILE_SIZE + "px",
     backgroundPosition: -x * TILE_SIZE + "px " + -y * TILE_SIZE + "px"
   });
-  tile.x = x;
-  tile.y = y;
-  return tile;
+  tileElement.x = x;
+  tileElement.y = y;
+  return tileElement;
 }
 
 function randomInt(min, max){
