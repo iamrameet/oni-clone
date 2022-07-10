@@ -36,7 +36,7 @@ const Level = new class Level{
     for(let x = 0; x < width; x++){
       this.naturalTiles[x] = [];
       for(let y = 0; y < height; y++)
-        this.naturalTiles[x][y] = 0;
+        this.naturalTiles[x][y] = 1;
     }
   }
   /** @param {number[][]} tiles */
@@ -63,17 +63,9 @@ const Level = new class Level{
 function main(){
 
   Level.generate(100, 100);
-  Level.overrideNaturalTiles(Level.biome.temperate.construct(40, 40));
-  Level.overrideNaturalTiles(Level.biome.forest.construct(40, 40), 0, 40);
-  Level.overrideNaturalTiles(Level.biome.metalArea.construct(40, 40), 40, 0);
-
-  // const canvas = DOM.create("canvas", {
-  //   width: (TILE_H - 1) * TILE_SIZE,
-  //   Height: (TILE_V - 1) * TILE_SIZE
-  // });
-  // document.body.appendChild(canvas);
-  // const context = canvas.getContext("2d");
-
+  Level.overrideNaturalTiles(Level.biome.temperate.construct(20, 20), 1, 1);
+  Level.overrideNaturalTiles(Level.biome.forest.construct(20, 20), 1, 22);
+  Level.overrideNaturalTiles(Level.biome.metalArea.construct(20, 20), 22, 1);
 
   for(let x = 0; x < Level.naturalTiles.length; x++){
     for(let y = 0; y < Level.naturalTiles[x].length; y++){
