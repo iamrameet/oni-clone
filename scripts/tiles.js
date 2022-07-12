@@ -3,31 +3,33 @@
 /// <reference path="../data/tiles.js"/>
 
 const Tiles = new class TileManager{
+  buildingIndex = 0;
   /** @type {NaturalTileIndexNameMap} */
   natural = {};
   /** @type {BuildingTileIndexNameMap} */
   building = {};
   /** @type {NaturalTileName[]} */
-  #naturalTiles = [];
-  /** @type {BuildingTileName[]} */
-  #buildingTiles = [];
+  #tiles = [];
   constructor(){
     let keys = Object.keys(_naturalTiles);
-    for(const [index, key] of keys.entries()){
+    let index = 0;
+    for(const key of keys){
       _naturalTiles[key] = new NaturalTile(_naturalTiles[key].id, _naturalTiles[key].name);
       this.natural[key] = index;
-      this.#naturalTiles[index] = key;
+      this.#tiles[index] = key;
+      index++;
     }
+    this.buildingIndex = index;
     keys = Object.keys(_buildingTiles);
-    let index = 0;
     for(const key of keys){
       const ks = Object.keys(_buildingTiles[key]);
       this.building[key] = {};
       for(const k of ks){
-        _buildingTiles[key][k] = new BuildingTile(_buildingTiles[key][k].id, _buildingTiles[key][k].name);
+        _buildingTiles[k] = new BuildingTile(_buildingTiles[key][k].id, _buildingTiles[key][k].name);
         this.building[key][k] = index;
-        this.#buildingTiles[index++] = k;
+        this.#tiles[index++] = k;
       }
+      delete _buildingTiles[key];
     }
   }
   /**
@@ -35,6 +37,20 @@ const Tiles = new class TileManager{
    * @returns {NaturalTile}
    */
   getNaturalTile(index){
-    return _naturalTiles[this.#naturalTiles[index]];
+    return _naturalTiles[this.#tiles[index]];
+  }
+  /**
+   * @param {number} index
+   * @returns {BuildingTile}
+   */
+  getBuildingTile(index){
+    return _buildingTiles[this.#tiles[index]];
+  }
+  /**
+   * @param {number} index
+   * @returns {Tile}
+   */
+  getTile(index){
+    return this.getNaturalTile(index) ?? this.getBuildingTile(index);
   }
 };

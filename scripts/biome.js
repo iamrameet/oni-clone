@@ -140,6 +140,22 @@ class BiomeMap{
   mergePores(){
     this.overrideNaturalTiles(this.pores);
   }
+  generateBase(){
+    const centerX = Math.floor((this.width / 2 - 4));
+    const centerY = Math.floor((this.height / 2 - 2 - 19));
+    const tiles = array2D(8, 4, NULL_TILE);
+    const floor = array2D(8, 1, Tiles.building.base.Tile);
+    const floor2 = array2D(7, 1, Tiles.building.base.Tile);
+    const high = array2D(3, 2, Tiles.building.base.Tile);
+    const high2 = array2D(1, 2, Tiles.building.base.Tile);
+
+    overrideArray2D(tiles, floor, 0, 3, NULL_TILE);
+    // overrideArray2D(tiles, floor2, 1, 0, NULL_TILE);
+    // overrideArray2D(tiles, high, 0, 1, NULL_TILE);
+    // overrideArray2D(tiles, high2, 7, 1, NULL_TILE);
+
+    this.overrideNaturalTiles(tiles, centerX, centerY);
+  }
 
   /** @param {number[][]} tiles */
   overrideNaturalTiles(tiles, offsetX = 0, offsetY = 0){

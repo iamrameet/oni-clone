@@ -3,7 +3,7 @@
 /// <reference path="biome.js"/>
 
 const TILE_SIZE = 42;
-let ScaleFactor = 2;
+let ScaleFactor = 1;
 const TILE_H = Math.floor(window.innerWidth / TILE_SIZE) * ScaleFactor;
 const TILE_V = Math.floor(window.innerHeight / TILE_SIZE) * ScaleFactor;
 
@@ -14,7 +14,7 @@ const Level = new class Level{
     x: 0,
     y: 0
   };
-  naturalTiles = {
+  tiles = {
     /** @type {HTMLElement[][]} */
     loaded: [],
     /** @type {HTMLElement[]} */
@@ -67,37 +67,37 @@ const Level = new class Level{
   }
 
   renderTiles(){
-    this.scroll.x = inLimit(this.scroll.x, 0, this.naturalTiles.loaded.length - TILE_H);
-    this.scroll.y = inLimit(this.scroll.y, 0, this.naturalTiles.loaded[0].length - TILE_V);
+    this.scroll.x = inLimit(this.scroll.x, 0, this.tiles.loaded.length - TILE_H);
+    this.scroll.y = inLimit(this.scroll.y, 0, this.tiles.loaded[0].length - TILE_V);
 
     const minX = Math.max(this.scroll.x - 1, 0);
     const minY = Math.max(this.scroll.y - 1, 0);
-    const maxX = Math.min(TILE_H + minX + 1, this.naturalTiles.loaded.length);
-    const maxY = Math.min(TILE_V + minY + 1, this.naturalTiles.loaded[0].length);
+    const maxX = Math.min(TILE_H + minX + 1, this.tiles.loaded.length);
+    const maxY = Math.min(TILE_V + minY + 1, this.tiles.loaded[0].length);
 
     // console.log({minX, minY, maxX, maxY});
     for(let x = minX; x < maxX; x++){
       for(let y = minY; y < maxY; y++){
-        const tile = this.naturalTiles.loaded[x][y];
-        const tileIndex = this.naturalTiles.rendered.indexOf(tile);
+        const tile = this.tiles.loaded[x][y];
+        const tileIndex = this.tiles.rendered.indexOf(tile);
         if(tileIndex > -1){
-          this.naturalTiles.rendered.splice(tileIndex, 1);
+          this.tiles.rendered.splice(tileIndex, 1);
         }
       }
     }
     // console.log(this.naturalTiles.rendered.length, "tiles to unrender");
 
-    this.naturalTiles.rendered.forEach(tile => tile.remove());
-    this.naturalTiles.rendered.splice(0);
+    this.tiles.rendered.forEach(tile => tile.remove());
+    this.tiles.rendered.splice(0);
 
     for(let x = minX; x < maxX; x++){
       for(let y = minY; y < maxY; y++){
-        const tile = this.naturalTiles.loaded[x][y];
+        const tile = this.tiles.loaded[x][y];
         if(!tile.parentElement){
           document.body.appendChild(tile);
           // console.log("rendered")
         }
-        this.naturalTiles.rendered.push(tile);
+        this.tiles.rendered.push(tile);
       }
     }
 
@@ -174,34 +174,67 @@ function main(){
   });
   Level.biomeMap.mergeBiomes();
   Level.biomeMap.mergePores();
+  Level.biomeMap.generateBase();
 
   for(let x = 0; x < Level.biomeMap.naturalTiles.length; x++){
-    Level.naturalTiles.loaded[x] = [];
+    Level.tiles.loaded[x] = [];
     for(let y = 0; y < Level.biomeMap.naturalTiles[x].length; y++){
       // const index = randomInt(0, 3);
       const index = Level.biomeMap.naturalTiles[x][y];
-      const naturalTile = Tiles.getNaturalTile(index);
-      if(naturalTile.id === null)
+      const anyTile = Tiles.getTile(index);
+      if(anyTile === undefined)
+        console.log(index);
+      if(anyTile.id === null)
        continue;
-      const tile = createTile(naturalTile, x, y);
-
+      let tile;
+      if(anyTile instanceof NaturalTile)
+        tile = createNaturalTile(anyTile, x, y);
+      else if(anyTile instanceof BuildingTile){
+        tile = createBuildingTile(anyTile, x, y);
+        if(x-1 in Level.biomeMap.naturalTiles && Level.biomeMap.naturalTiles[x-1][y] === index){
+          tile.classList.add("right");
+          Level.tiles.loaded[x-1][y].classList.add("left");
+        }
+        // if(x+1 in Level.biomeMap.naturalTiles && Level.biomeMap.naturalTiles[x+1][y] === index)
+        //   tile.classList.add("left");
+        if(y-1 in Level.biomeMap.naturalTiles[x] && Level.biomeMap.naturalTiles[x][y-1] === index){
+          tile.classList.add("bottom");
+          Level.tiles.loaded[x][y-1].classList.add("top");
+        }
+        // if(y+1 in Level.biomeMap.naturalTiles[x] && Level.biomeMap.naturalTiles[x][y+1] === index)
+        //   tile.classList.add("top");
+      }
+      if(!tile)
+        console.log(anyTile)
       if(x-1 in Level.biomeMap.naturalTiles){
         if(Level.biomeMap.naturalTiles[x-1][y] !== index)
           tile.classList.add("left-border");
-        if(y-1 in Level.biomeMap.naturalTiles[x-1]){
+        if(false && y-1 in Level.biomeMap.naturalTiles[x-1]){
           if(Level.biomeMap.naturalTiles[x-1][y-1] === index){
             if(y-1 in Level.biomeMap.naturalTiles[x] && Level.biomeMap.naturalTiles[x][y-1] !== index)
-              Level.naturalTiles.loaded[x][y-1].classList.add("curve-bottom-left");
+              Level.tiles.loaded[x][y-1].classList.add("curve-bottom-left");
             if(x-1 in Level.biomeMap.naturalTiles && Level.biomeMap.naturalTiles[x-1][y] !== index)
-              Level.naturalTiles.loaded[x-1][y].classList.add("curve-top-right");
+              Level.tiles.loaded[x-1][y].classList.add("curve-top-right");
           }
         }
+        if(Level.biomeMap.naturalTiles[x-1][y] >= Tiles.buildingIndex)
+          tile.classList.add("right-straight");
+      }
+      if(x+1 in Level.biomeMap.naturalTiles){
+        if(Level.biomeMap.naturalTiles[x+1][y] >= Tiles.buildingIndex)
+          tile.classList.add("left-straight");
       }
       if(y-1 in Level.biomeMap.naturalTiles[x]){
         if(Level.biomeMap.naturalTiles[x][y-1] !== index)
           tile.classList.add("top-border");
+        if(Level.biomeMap.naturalTiles[x][y-1] >= Tiles.buildingIndex)
+          tile.classList.add("top-straight");
       }
-      Level.naturalTiles.loaded[x][y] = tile;
+      if(y+1 in Level.biomeMap.naturalTiles[x]){
+        if(Level.biomeMap.naturalTiles[x][y+1] >= Tiles.buildingIndex)
+          tile.classList.add("bottom-straight");
+      }
+      Level.tiles.loaded[x][y] = tile;
       // document.body.prepend(tile);
       // if(index === 3){
       //   const child_tile = createTile("copper-mask", x, y);
@@ -244,10 +277,10 @@ function main(){
 
 }
 
-/** @param {Tile} tile */
-function createTile(tile, x, y){
+/** @param {NaturalTile} tile */
+function createNaturalTile(tile, x, y){
   const tileElement = DOM.create("div", {
-    class: "tile " + tile.id,
+    class: "tile natural " + tile.id,
     title: tile.name
   }, {
     top: y * TILE_SIZE + "px",
@@ -255,6 +288,23 @@ function createTile(tile, x, y){
     width: TILE_SIZE + "px",
     height: TILE_SIZE + "px",
     backgroundPosition: -x * TILE_SIZE + "px " + -y * TILE_SIZE + "px"
+  });
+  tileElement.x = x;
+  tileElement.y = y;
+  return tileElement;
+}
+
+/** @param {BuildingTile} tile */
+function createBuildingTile(tile, x, y){
+  const tileElement = DOM.create("div", {
+    class: "tile building " + tile.id,
+    title: tile.name
+  }, {
+    top: y * TILE_SIZE + "px",
+    left: x * TILE_SIZE + "px",
+    width: TILE_SIZE + "px",
+    height: TILE_SIZE + "px",
+    // backgroundPosition: -x * TILE_SIZE + "px " + -y * TILE_SIZE + "px"
   });
   tileElement.x = x;
   tileElement.y = y;

@@ -21,146 +21,242 @@ body{
   position: absolute;
   width: 64px;
   height: 64px;
+  background-repeat: no-repeat;
+  transform: scaleX(1.13) scaleY(1.13);
+}
+.tile.natural{
+  clip-path: polygon(10% 10%, 20% 10%, 45% 0%, 80% 10%, 100% 10%, 90% 30%, 100% 60%, 100% 100%, 80% 100%, 45% 90%, 20% 100%, 10% 100%, 10% 90%, 10% 60%, 0% 30%);
   background-size: 480px;
   background-position: 0px 0px;
   background-repeat: repeat;
   /* background-attachment: fixed; */
-  clip-path: polygon(10% 10%, 20% 10%, 45% 0%, 80% 10%, 100% 10%, 90% 30%, 100% 60%, 100% 100%, 80% 100%, 45% 90%, 20% 100%, 10% 100%, 10% 90%, 10% 60%, 0% 30%);
-  transform: scaleX(1.13) scaleY(1.13);
   /* border: 2px solid transparent; */
 }
-.tile:hover{
+.tile.natural:hover{
   opacity: 0.7;
 }
-.tile.left-border{
+.tile.natural.bottom-straight{
+  clip-path: polygon(10% 10%, 20% 10%, 45% 0%, 80% 10%, 100% 10%, 90% 30%, 100% 60%, 100% 100%, 80% 100%, 45% 100%, 20% 100%, 10% 100%, 10% 90%, 10% 60%, 0% 30%);
+} 
+.tile.natural.top-straight{
+  clip-path: polygon(10% 0%, 20% 0%, 45% 0%, 80% 0%, 100% 0%, 90% 30%, 100% 60%, 100% 100%, 80% 100%, 45% 90%, 20% 100%, 10% 100%, 10% 90%, 10% 60%, 0% 30%);
+}
+.tile.natural.left-straight{
+  clip-path: polygon(10% 10%, 20% 10%, 45% 0%, 80% 10%, 100% 10%, 100% 30%, 100% 60%, 100% 100%, 80% 100%, 45% 90%, 20% 100%, 10% 100%, 10% 90%, 10% 60%, 0% 30%);
+}
+.tile.natural.right-straight{
+  clip-path: polygon(0% 10%, 20% 10%, 45% 0%, 80% 10%, 100% 10%, 90% 30%, 100% 60%, 100% 100%, 80% 100%, 45% 90%, 20% 100%, 0% 100%, 0% 90%, 0% 60%, 0% 30%);
+}
+.tile.natural.left-border{
   transform: scaleX(1.03) scaleY(1.13) translateX(2px);
   /* border-left: 2px solid black; */
 }
-.tile.top-border{
+.tile.natural.top-border{
   transform: scaleX(1.13) scaleY(1.03) translateY(2px);
   /* border-top: 2px solid black; */
 }
-.tile.left-border.top-border{
+.tile.natural.left-border.top-border{
   transform: scaleX(1.03) scaleY(1.03) translateX(2px) translateY(2px);
 }
-.tile.curve-bottom-left{
+.tile.natural.curve-bottom-left{
   border-radius: 0 0 0 50%;
 }
-.tile.curve-top-right{
+.tile.natural.curve-top-right{
   border-radius: 0 50% 0 0;
 }
-.tile.curve-bottom-left.curve-top-right{
+.tile.natural.curve-bottom-left.curve-top-right{
   border-radius: 0 50%;
 }
 
 
-.tile.air{
+.tile.natural.air{
   background-image: url("../assets/Texture2D/solid_oxygen.png");
 }
-.tile.dirt{
+.tile.natural.dirt{
   background-image: url("../assets/Texture2D/dirt.png");
 }
-.tile.sand{
+.tile.natural.sand{
   background-image: url("../assets/Texture2D/sand.png");
 }
-.tile.clay{
+.tile.natural.clay{
   background-image: url("../assets/Texture2D/clay.png");
 }
-.tile.fertilizer{
+.tile.natural.fertilizer{
   background-image: url("../assets/Texture2D/fertilizer.png");
 }
-.tile.oxylite{
+.tile.natural.oxylite{
   background-image: url("../assets/Texture2D/oxyrocks.png");
 }
-.tile.salt{
+.tile.natural.salt{
   background-image: url("../assets/Texture2D/salt.png");
 }
-.tile.snow{
+.tile.natural.snow{
   background-image: url("../assets/Texture2D/snow.png");
 }
-.tile.ice{
+.tile.natural.ice{
   background-image: url("../assets/Texture2D/ice.png");
 }
-.tile.polluted-ice{
+.tile.natural.polluted-ice{
   background-image: url("../assets/Texture2D/dirty_ice.png");
 }
-.tile.coal{
+.tile.natural.coal{
   background-image: url("../assets/Texture2D/carbon.png");
 }
-.tile.granite{
+.tile.natural.granite{
   background-image: url("../assets/Texture2D/granite.png");
 }
-.tile.sandstone{
+.tile.natural.sandstone{
   background-image: url("../assets/Texture2D/sand_stone.png");
 }
-.tile.limestone{
+.tile.natural.limestone{
   background-image: url("../assets/Texture2D/limestone.png");
 }
-.tile.bleach-stone{
+.tile.natural.bleach-stone{
   background-image: url("../assets/Texture2D/bleach_stone.png");
 }
-.tile.igneous-rock{
+.tile.natural.igneous-rock{
   background-image: url("../assets/Texture2D/igneous_rock.png");
 }
-.tile.sedimentary-rock{
+.tile.natural.sedimentary-rock{
   background-image: url("../assets/Texture2D/sedimentary_rock.png");
 }
-.tile.phosphorus{
+.tile.natural.phosphorus{
   background-image: url("../assets/Texture2D/phosphorus.png");
 }
-.tile.phosphorite{
+.tile.natural.phosphorite{
   background-image: url("../assets/Texture2D/phosphorite.png");
 }
-.tile.sulfur{
+.tile.natural.sulfur{
   background-image: url("../assets/Texture2D/sulfur.png");
   background-size: 180px;
 }
-.tile.algae{
+.tile.natural.algae{
   background-image: url("../assets/Texture2D/algae.png");
   background-size: 180px;
 }
-.tile.slime{
+.tile.natural.slime{
   background-image: url("../assets/Texture2D/slime_mold.png");
 }
-.tile.absylite{
+.tile.natural.absylite{
   background-image: url("../assets/Texture2D/katairite.png");
 }
-.tile.copper-ore{
+.tile.natural.copper-ore{
   background-image: url("../assets/Texture2D/cuprite.png");
 }
-.tile.iron-ore{
+.tile.natural.iron-ore{
   background-image: url("../assets/Texture2D/iron.png");
 }
-.tile.aluminum-ore{
+.tile.natural.aluminum-ore{
   background-image: url("../assets/Texture2D/aluminum_ore.png");
 }
-.tile.gold-amalgam{
+.tile.natural.gold-amalgam{
   background-image: url("../assets/Texture2D/gold_amalgam.png");
 }
-.tile.neutronium{
+.tile.natural.neutronium{
   background-image: url("../assets/Texture2D/neutronium.png");
 }
-.tile.lead{
+.tile.natural.lead{
   background-image: url("../assets/Texture2D/lead.png");
 }
-.tile.diamond{
+.tile.natural.diamond{
   background-image: url("../assets/Texture2D/diamond.png");
 }
-.tile.fossil{
+.tile.natural.fossil{
   background-image: url("../assets/Texture2D/fossil.png");
 }
-.tile.obsidian{
+.tile.natural.obsidian{
   background-image: url("../assets/Texture2D/obsidian.png");
 }
-.tile.magma{
+.tile.natural.magma{
   background-color: #b41414;
 }
-.tile.water{
-  background-color: skyblue;
+.tile.natural.water{
+  /* background-color: skyblue; */
+  /* background: linear-gradient(0deg, skyblue, #fff); */
+  background-image: url("https://i.gifer.com/OVZK.gif");
+  background-size: 128px;
+  /* animation: liquid 3s ease infinite; */
+  /* clip-path: none;
+  z-index: -1; */
+}
+
+@keyframes liquid {
+  0%{background-position:50% 0%}
+  50%{background-position:50% 100%}
+  100%{background-position:50% 0%}
 }
 
 
-/* .tile.copper-mask{
+.tile.building.tile-solid{
+  background-position: -6px -4px;
+  background-size: 258px;
+  background-image: url("../assets/Texture2D/tiles_solid.png");
+  /* background-color: #f006; */
+  transform: scaleX(1.13) scaleY(1.13) translate(2px, 2px);
+  z-index: 2;
+}
+.tile.building.tile-solid.left{
+  background-position: -114px -4px;
+}
+.tile.building.tile-solid.right{
+  background-position: -6px -57px;
+}
+.tile.building.tile-solid.left.right{
+  background-position: -116px -64px;
+}
+
+.tile.building.tile-solid.top{
+  background-position: -57px -4px;
+}
+.tile.building.tile-solid.bottom{
+  background-position: -6px -114px;
+}
+.tile.building.tile-solid.top.bottom{
+  background-position: -64px -116px;
+}
+
+.tile.building.tile-solid.left.top{
+  background-position: -165px -7px;
+}
+.tile.building.tile-solid.left.bottom{
+  background-position: -112px -109px;
+}
+.tile.building.tile-solid.right.top{
+  background-position: -57px -60px;
+}
+.tile.building.tile-solid.right.bottom{
+  background-position: -4px -162px;
+}
+
+.tile.building.tile-solid.left.right.bottom{
+  background-position: -117px -162px;
+  z-index: 1;
+}
+.tile.building.tile-solid.left.right.top{
+  background-position: -161px -60px;
+  z-index: 1;
+}
+.tile.building.tile-solid.left.top.bottom{
+  background-position: -165px -114px;
+  z-index: 1;
+}
+.tile.building.tile-solid.right.top.bottom{
+  background-position: -56px -169px;
+  z-index: 1;
+}
+
+.tile.building.tile-solid.left.right.top.bottom{
+  background-position: -162px -162px;
+  z-index: 1;
+}
+
+.tile.building.tile-solid.left.right:not(:is(.top, .bottom)),
+.tile.building.tile-solid.top.bottom:not(:is(.left, .right)){
+  background-size: 275px;
+}
+
+
+/* .tile.natural.copper-mask{
   background-image: url("../assets/Texture2D/cuprite_mask.png");
   clip-path: polygon(0 0, 40% 0, 100% 60%, 100% 100%, 60% 100%, 0 40%);
 } */
