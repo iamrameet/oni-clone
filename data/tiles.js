@@ -38,6 +38,6 @@ const _naturalTiles = {
 
 const _buildingTiles = {
   base : {
-    "Tile": { id: "tile", name: "Tile", requirements: ["raw-mineral"] }
+    "Tile": { id: "tile-solid", name: "Tile", requirements: ["raw-mineral"] }
   }
 }
