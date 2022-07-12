@@ -1,12 +1,21 @@
 *{margin: 0;padding: 0;box-sizing: border-box;}
+html{
+  overflow: auto;
+}
 body{
-  position: relative;
+  --scale-factor: 1;
+  position: absolute;
+  width: calc(100vw * var(--scale-factor));
+  height: calc(100vh * var(--scale-factor));
   font-family: 'Roboto', sans-serif;
   font-size: 16px;
   line-height: 1.5;
   color: #333;
   background-color: #000;
-  zoom: 0.48;
+  overflow: hidden;
+  zoom: calc(1 / var(--scale-factor));
+  user-select: none;
+  /* scroll-behavior: smooth; */
 }
 .tile{
   position: absolute;
@@ -18,20 +27,32 @@ body{
   /* background-attachment: fixed; */
   clip-path: polygon(10% 10%, 20% 10%, 45% 0%, 80% 10%, 100% 10%, 90% 30%, 100% 60%, 100% 100%, 80% 100%, 45% 90%, 20% 100%, 10% 100%, 10% 90%, 10% 60%, 0% 30%);
   transform: scaleX(1.13) scaleY(1.13);
-  /* opacity: 0.5; */
+  /* border: 2px solid transparent; */
 }
 .tile:hover{
   opacity: 0.7;
 }
 .tile.left-border{
   transform: scaleX(1.03) scaleY(1.13) translateX(2px);
+  /* border-left: 2px solid black; */
 }
 .tile.top-border{
   transform: scaleX(1.13) scaleY(1.03) translateY(2px);
+  /* border-top: 2px solid black; */
 }
 .tile.left-border.top-border{
   transform: scaleX(1.03) scaleY(1.03) translateX(2px) translateY(2px);
 }
+.tile.curve-bottom-left{
+  border-radius: 0 0 0 50%;
+}
+.tile.curve-top-right{
+  border-radius: 0 50% 0 0;
+}
+.tile.curve-bottom-left.curve-top-right{
+  border-radius: 0 50%;
+}
+
 
 .tile.air{
   background-image: url("../assets/Texture2D/solid_oxygen.png");
@@ -42,23 +63,47 @@ body{
 .tile.sand{
   background-image: url("../assets/Texture2D/sand.png");
 }
+.tile.clay{
+  background-image: url("../assets/Texture2D/clay.png");
+}
 .tile.fertilizer{
   background-image: url("../assets/Texture2D/fertilizer.png");
 }
 .tile.oxylite{
   background-image: url("../assets/Texture2D/oxyrocks.png");
 }
+.tile.salt{
+  background-image: url("../assets/Texture2D/salt.png");
+}
+.tile.snow{
+  background-image: url("../assets/Texture2D/snow.png");
+}
+.tile.ice{
+  background-image: url("../assets/Texture2D/ice.png");
+}
+.tile.polluted-ice{
+  background-image: url("../assets/Texture2D/dirty_ice.png");
+}
 .tile.coal{
   background-image: url("../assets/Texture2D/carbon.png");
 }
-.tile.igneous-rock{
-  background-image: url("../assets/Texture2D/igneous_rock.png");
+.tile.granite{
+  background-image: url("../assets/Texture2D/granite.png");
+}
+.tile.sandstone{
+  background-image: url("../assets/Texture2D/sand_stone.png");
 }
 .tile.limestone{
   background-image: url("../assets/Texture2D/limestone.png");
 }
-.tile.sandstone{
-  background-image: url("../assets/Texture2D/sand_stone.png");
+.tile.bleach-stone{
+  background-image: url("../assets/Texture2D/bleach_stone.png");
+}
+.tile.igneous-rock{
+  background-image: url("../assets/Texture2D/igneous_rock.png");
+}
+.tile.sedimentary-rock{
+  background-image: url("../assets/Texture2D/sedimentary_rock.png");
 }
 .tile.phosphorus{
   background-image: url("../assets/Texture2D/phosphorus.png");
@@ -74,22 +119,48 @@ body{
   background-image: url("../assets/Texture2D/algae.png");
   background-size: 180px;
 }
-.tile.slime-mold{
+.tile.slime{
   background-image: url("../assets/Texture2D/slime_mold.png");
-}
-.tile.copper{
-  background-image: url("../assets/Texture2D/cuprite.png");
-}
-.tile.iron{
-  background-image: url("../assets/Texture2D/iron.png");
-}
-.tile.aluminum{
-  background-image: url("../assets/Texture2D/aluminum_ore.png");
 }
 .tile.absylite{
   background-image: url("../assets/Texture2D/katairite.png");
 }
-.tile.copper-mask{
-  /* background-image: url("../assets/Texture2D/cuprite_mask.png"); */
-  /* clip-path: polygon(0 0, 40% 0, 100% 60%, 100% 100%, 60% 100%, 0 40%); */
+.tile.copper-ore{
+  background-image: url("../assets/Texture2D/cuprite.png");
 }
+.tile.iron-ore{
+  background-image: url("../assets/Texture2D/iron.png");
+}
+.tile.aluminum-ore{
+  background-image: url("../assets/Texture2D/aluminum_ore.png");
+}
+.tile.gold-amalgam{
+  background-image: url("../assets/Texture2D/gold_amalgam.png");
+}
+.tile.neutronium{
+  background-image: url("../assets/Texture2D/neutronium.png");
+}
+.tile.lead{
+  background-image: url("../assets/Texture2D/lead.png");
+}
+.tile.diamond{
+  background-image: url("../assets/Texture2D/diamond.png");
+}
+.tile.fossil{
+  background-image: url("../assets/Texture2D/fossil.png");
+}
+.tile.obsidian{
+  background-image: url("../assets/Texture2D/obsidian.png");
+}
+.tile.magma{
+  background-color: #b41414;
+}
+.tile.water{
+  background-color: skyblue;
+}
+
+
+/* .tile.copper-mask{
+  background-image: url("../assets/Texture2D/cuprite_mask.png");
+  clip-path: polygon(0 0, 40% 0, 100% 60%, 100% 100%, 60% 100%, 0 40%);
+} */

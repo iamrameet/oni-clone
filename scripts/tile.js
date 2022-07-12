@@ -1,3 +1,5 @@
+const NULL_TILE = -1;
+
 class Tile{
   /**
    * @param {string} id
@@ -10,3 +12,5 @@ class Tile{
 }
 
 class NaturalTile extends Tile{}
+
+class BuildingTile extends Tile{}
