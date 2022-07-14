@@ -15,6 +15,7 @@ body{
   overflow: hidden;
   zoom: calc(1 / var(--scale-factor));
   user-select: none;
+  overscroll-behavior-y: none;
   /* scroll-behavior: smooth; */
 }
 .tile{
@@ -187,7 +188,7 @@ body{
 }
 
 
-.tile.building.tile-solid{
+.tile.platform.tile-solid{
   background-position: -6px -4px;
   background-size: 258px;
   background-image: url("../assets/Texture2D/tiles_solid.png");
@@ -195,63 +196,63 @@ body{
   transform: scaleX(1.13) scaleY(1.13) translate(2px, 2px);
   z-index: 2;
 }
-.tile.building.tile-solid.left{
+.tile.platform.tile-solid.left{
   background-position: -114px -4px;
 }
-.tile.building.tile-solid.right{
+.tile.platform.tile-solid.right{
   background-position: -6px -57px;
 }
-.tile.building.tile-solid.left.right{
+.tile.platform.tile-solid.left.right{
   background-position: -116px -64px;
 }
 
-.tile.building.tile-solid.top{
+.tile.platform.tile-solid.top{
   background-position: -57px -4px;
 }
-.tile.building.tile-solid.bottom{
+.tile.platform.tile-solid.bottom{
   background-position: -6px -114px;
 }
-.tile.building.tile-solid.top.bottom{
+.tile.platform.tile-solid.top.bottom{
   background-position: -64px -116px;
 }
 
-.tile.building.tile-solid.left.top{
+.tile.platform.tile-solid.left.top{
   background-position: -165px -7px;
 }
-.tile.building.tile-solid.left.bottom{
+.tile.platform.tile-solid.left.bottom{
   background-position: -112px -109px;
 }
-.tile.building.tile-solid.right.top{
+.tile.platform.tile-solid.right.top{
   background-position: -57px -60px;
 }
-.tile.building.tile-solid.right.bottom{
+.tile.platform.tile-solid.right.bottom{
   background-position: -4px -162px;
 }
 
-.tile.building.tile-solid.left.right.bottom{
+.tile.platform.tile-solid.left.right.bottom{
   background-position: -117px -162px;
   z-index: 1;
 }
-.tile.building.tile-solid.left.right.top{
+.tile.platform.tile-solid.left.right.top{
   background-position: -161px -60px;
   z-index: 1;
 }
-.tile.building.tile-solid.left.top.bottom{
+.tile.platform.tile-solid.left.top.bottom{
   background-position: -165px -114px;
   z-index: 1;
 }
-.tile.building.tile-solid.right.top.bottom{
+.tile.platform.tile-solid.right.top.bottom{
   background-position: -56px -169px;
   z-index: 1;
 }
 
-.tile.building.tile-solid.left.right.top.bottom{
+.tile.platform.tile-solid.left.right.top.bottom{
   background-position: -162px -162px;
   z-index: 1;
 }
 
-.tile.building.tile-solid.left.right:not(:is(.top, .bottom)),
-.tile.building.tile-solid.top.bottom:not(:is(.left, .right)){
+.tile.platform.tile-solid.left.right:not(:is(.top, .bottom)),
+.tile.platform.tile-solid.top.bottom:not(:is(.left, .right)){
   background-size: 275px;
 }
 

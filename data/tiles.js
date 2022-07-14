@@ -36,8 +36,10 @@ const _naturalTiles = {
   "Water": { id: "water", name: "Water" }
 }
 
+const _platformTiles = {
+  "Tile": { id: "tile-solid", name: "Tile", requirements: ["raw-mineral"] }
+}
+
 const _buildingTiles = {
-  base : {
-    "Tile": { id: "tile-solid", name: "Tile", requirements: ["raw-mineral"] }
-  }
+  "PrintingPod": { id: "printing-pod", name: "Printing Pod", width: 4, height: 4 }
 }
