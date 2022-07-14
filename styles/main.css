@@ -15,7 +15,7 @@ body{
   overflow: hidden;
   zoom: calc(1 / var(--scale-factor));
   user-select: none;
-  overscroll-behavior-y: none;
+  overscroll-behavior-y: contain;
   /* scroll-behavior: smooth; */
 }
 .tile{
